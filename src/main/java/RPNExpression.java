@@ -3,27 +3,33 @@ import java.util.Stack;
 /**
  * RPN EXPLANATION GOES HERE
  */
-public class RPN
+public class RPNExpression
 {
-    private Stack<Double> stack;
+    private final Stack<Double> stack;
+    private final String expression;
+    private final String ERR_MSG;
 
-    public RPN(String expression)
+    public RPNExpression(String expression)
     {
         this.stack = new Stack<>();
+        this.expression = expression;
+        ERR_MSG = "Something went wrong. RPN expression ignored.";
     }
 
     /**
      * Method to evaluate RPN expression
-     * @param expression - the RPN expression
      * @return String - either RPN converted to String, or an error message
      */
-    public String evaluate(String expression)
+    public String evaluate()
     {
-        String[] rpnChars = expression.split("\\s+");
-        String rpn = "Something went wrong. RPN expression ignored.";
-        if (calculateExpressionSuccessfully(rpnChars))
+        String rpn = ERR_MSG;
+        if (expression != null)
         {
-            rpn = getRPN();
+            String[] rpnChars = expression.strip().split("\\s+");
+            if (calculateExpressionSuccessfully(rpnChars))
+            {
+                rpn = getRPN();
+            }
         }
         return rpn;
     }
@@ -83,7 +89,7 @@ public class RPN
      * Check if current RPN value is an operator and which one it is
      * @param value (String) - variable to check if it is an operator
      * @param operators (String[]) - list of legal operators
-     * @return String, null if not an operator, or the operator if it is one
+     * @return String, "null" if not an operator, or the operator if it is one
      */
     private String getOperator(String value, String[] operators)
     {
@@ -171,15 +177,11 @@ public class RPN
      * Method to get the RPN
      * @return String - if all goes well, returns the RPN, otherwise returns an error message
      */
-    public String getRPN()
+    private String getRPN()
     {
-        String rpnMessage;
+        String rpnMessage = ERR_MSG;
 
-        if (stack.isEmpty())
-        {
-            rpnMessage = "Syntax error. RPN expression ignored.";
-        }
-        else
+        if (!stack.isEmpty())
         {
             double rpn = stack.pop(); //this should be the last remaining member of the stack: the final answer
 
