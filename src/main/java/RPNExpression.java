@@ -1,19 +1,19 @@
 import java.util.Stack;
 
 /**
- * RPN EXPLANATION GOES HERE
+ * Reverse Polish Notation calculates a mathematical expression slightly differently than the normal way.
+ * Instead of 3 + 4, using RPN, the expression would be 3 4 +
  */
 public class RPNExpression
 {
     private final Stack<Double> stack;
     private final String expression;
-    private final String ERR_MSG;
+    private final String ERR_MSG = "Something went wrong. RPN expression ignored.";
 
     public RPNExpression(String expression)
     {
         this.stack = new Stack<>();
         this.expression = expression;
-        ERR_MSG = "Something went wrong. RPN expression ignored.";
     }
 
     /**
@@ -22,16 +22,15 @@ public class RPNExpression
      */
     public String evaluate()
     {
-        String rpn = ERR_MSG;
         if (expression != null)
         {
             String[] rpnChars = expression.strip().split("\\s+");
             if (calculateExpressionSuccessfully(rpnChars))
             {
-                rpn = getRPN();
+                return getRPN();
             }
         }
-        return rpn;
+        return ERR_MSG;
     }
 
     /**
@@ -43,7 +42,6 @@ public class RPNExpression
     private boolean calculateExpressionSuccessfully(String[] rpnChars)
     {
         final String[] operators = {"+", "-", "*", "X", "x", "/", "÷"};
-        boolean success = true;
         for (String rpnChar : rpnChars)
         {
             if (isDouble(rpnChar))
@@ -57,13 +55,13 @@ public class RPNExpression
                 Double[] twoVariables = popTwoVariables();
                 Double var1 = twoVariables[0];
                 Double var2 = twoVariables[1];
-                if (var1 == null || var2 == null || !performOperationSuccessfully(value, var1, var2))
+                if (var1 == null || var2 == null || value == null || !performOperationSuccessfully(value, var1, var2))
                 {
-                    success = false;
+                    return false;
                 }
             }
         }
-        return success;
+        return true;
     }
 
     /**
@@ -73,16 +71,15 @@ public class RPNExpression
      */
     private boolean isDouble(String value)
     {
-        boolean isDouble = true;
         try
         {
             Double.parseDouble(value);
+            return true;
         }
         catch (Exception e)
         {
-            isDouble = false;
+           return false;
         }
-        return isDouble;
     }
 
     /**
@@ -93,7 +90,7 @@ public class RPNExpression
      */
     private String getOperator(String value, String[] operators)
     {
-        String operator = "null";
+        String operator = null;
         for (String item : operators)
         {
             if (item.equals(value))
@@ -136,7 +133,6 @@ public class RPNExpression
      */
     private boolean performOperationSuccessfully(String value, Double var1, Double var2)
     {
-        boolean success = true;
         switch (value)
         {
             case "+":
@@ -163,14 +159,14 @@ public class RPNExpression
                 else
                 {
                     //divide by zero error
-                    success = false;
+                    return false;
                 }
                 break;
             default:
                 //something went wrong
-                success = false;
+                return false;
         }
-        return success;
+        return true;
     }
 
     /**

@@ -269,24 +269,14 @@ class RPNExpressionTest
     public void evaluateMultipleTimes()
     {
         //given
-        RPNExpression rpn1 = new RPNExpression("3 4 + +"); //v1
-        RPNExpression rpn2 = new RPNExpression("3 4 + 3"); //v2
-        RPNExpression rpn3 = new RPNExpression("3 4 +");   //v3
+        RPNExpression rpn1 = new RPNExpression("3 4 + +");
 
         //when
-        String rpn1Round1 = rpn1.evaluate(); //v1
-        String rpn1Round2 = rpn1.evaluate(); //v1
-        String rpn2Round1 = rpn2.evaluate(); //v2
-        String rpn2Round2 = rpn2.evaluate(); //v2
-        String rpn3Round1 = rpn3.evaluate(); //v3
-        String rpn3Round2 = rpn3.evaluate(); //v3
+        String rpn1Round1 = rpn1.evaluate();
+        String rpn1Round2 = rpn1.evaluate();
 
         //then
-        assertEquals(rpn1Round1, rpn1Round2); //v1
-        assertEquals(rpn1Round2, rpn1Round1); //v1
-        assertEquals(rpn2Round1, rpn2Round2); //v2
-        assertEquals(rpn2Round2, rpn2Round1); //v2
-        assertEquals(rpn3Round1, rpn3Round2); //v3
-        assertEquals(rpn3Round2, rpn3Round1); //v3
+        assertEquals(rpn1Round1, rpn1Round2);
+        assertEquals(rpn1Round2, rpn1Round1);
     }
 }

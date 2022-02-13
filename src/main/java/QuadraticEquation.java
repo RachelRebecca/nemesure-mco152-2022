@@ -50,13 +50,11 @@ public class QuadraticEquation
      */
     public double[] getX()
     {
-        double[] retVal;
-
         double radical = Math.sqrt(b * b - 4 * a * c);
 
         if (a == 0 || radical <= 0)
         {
-            retVal = new double[]{Double.NaN, Double.NaN};
+            return new double[]{Double.NaN, Double.NaN};
         }
 
         else
@@ -64,10 +62,8 @@ public class QuadraticEquation
             double x1 = (-b + radical) / (2 * a);
             double x2 = (-b - radical) / (2 * a);
 
-            retVal = new double[]{x1, x2};
+            return new double[]{x1, x2};
         }
-
-        return retVal;
     }
 
     /**
