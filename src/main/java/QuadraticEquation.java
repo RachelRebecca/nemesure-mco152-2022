@@ -52,10 +52,18 @@ public class QuadraticEquation
     {
         double radical = Math.sqrt(b * b - 4 * a * c);
 
-        double x1 = (-b + radical) / (2 * a);
-        double x2 = (-b - radical) / (2 * a);
+        if (a == 0 || radical <= 0)
+        {
+            return new double[]{Double.NaN, Double.NaN};
+        }
 
-        return new double[]{x1, x2};
+        else
+        {
+            double x1 = (-b + radical) / (2 * a);
+            double x2 = (-b - radical) / (2 * a);
+
+            return new double[]{x1, x2};
+        }
     }
 
     /**
