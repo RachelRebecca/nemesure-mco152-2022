@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RPNExpressionTest
 {
-    private final String ERR_MSG = "Something went wrong. RPN expression ignored.";
-
     @Test
     public void evaluateNull()
     {
@@ -16,7 +14,7 @@ class RPNExpressionTest
         String result = rpn2.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result);
+        assertEquals(RPNExpression.ERR_MSG, result);
     }
 
     @Test
@@ -31,8 +29,8 @@ class RPNExpressionTest
         String result1 = rpn1.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result);
-        assertEquals(ERR_MSG, result1);
+        assertEquals(RPNExpression.ERR_MSG, result);
+        assertEquals(RPNExpression.ERR_MSG, result1);
     }
 
     @Test
@@ -127,9 +125,9 @@ class RPNExpressionTest
         String result3 = rpn3.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result1);
-        assertEquals(ERR_MSG, result2);
-        assertEquals(ERR_MSG, result3);
+        assertEquals(RPNExpression.ERR_MSG, result1);
+        assertEquals(RPNExpression.ERR_MSG, result2);
+        assertEquals(RPNExpression.ERR_MSG, result3);
     }
 
     @Test
@@ -179,10 +177,10 @@ class RPNExpressionTest
         String result4 = rpn4.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result1);
-        assertEquals(ERR_MSG, result2);
-        assertEquals(ERR_MSG, result3);
-        assertEquals(ERR_MSG, result4);
+        assertEquals(RPNExpression.ERR_MSG, result1);
+        assertEquals(RPNExpression.ERR_MSG, result2);
+        assertEquals(RPNExpression.ERR_MSG, result3);
+        assertEquals(RPNExpression.ERR_MSG, result4);
     }
 
     @Test
@@ -197,8 +195,8 @@ class RPNExpressionTest
         String result2 = rpn2.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result1);
-        assertEquals(ERR_MSG, result2);
+        assertEquals(RPNExpression.ERR_MSG, result1);
+        assertEquals(RPNExpression.ERR_MSG, result2);
     }
 
     @Test
@@ -213,8 +211,8 @@ class RPNExpressionTest
         String result2 = rpn2.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result1);
-        assertEquals(ERR_MSG, result2);
+        assertEquals(RPNExpression.ERR_MSG, result1);
+        assertEquals(RPNExpression.ERR_MSG, result2);
     }
 
     @Test
@@ -227,7 +225,7 @@ class RPNExpressionTest
         String result = rpn.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result);
+        assertEquals(RPNExpression.ERR_MSG, result);
     }
 
     @Test
@@ -242,8 +240,8 @@ class RPNExpressionTest
         String result2 = rpn2.evaluate();
 
         //then
-        assertEquals(ERR_MSG, result1);
-        assertEquals(ERR_MSG, result2);
+        assertEquals(RPNExpression.ERR_MSG, result1);
+        assertEquals(RPNExpression.ERR_MSG, result2);
     }
 
     @Test

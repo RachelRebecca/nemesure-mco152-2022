@@ -8,7 +8,7 @@ public class RPNExpression
 {
     private final Stack<Double> stack;
     private final String expression;
-    private final String ERR_MSG = "Something went wrong. RPN expression ignored.";
+    public static final String ERR_MSG = "Something went wrong. RPN expression ignored.";
 
     public RPNExpression(String expression)
     {
@@ -90,16 +90,14 @@ public class RPNExpression
      */
     private String getOperator(String value, String[] operators)
     {
-        String operator = null;
         for (String item : operators)
         {
             if (item.equals(value))
             {
-                operator = item;
-                break;
+                return item;
             }
         }
-        return operator;
+        return null;
     }
 
     /**
