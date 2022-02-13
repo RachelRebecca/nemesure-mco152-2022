@@ -19,7 +19,7 @@ class QuadraticEquationTest
     }
 
     @Test
-    public void getXNan()
+    public void getXNaN()
     {
         // given
 
