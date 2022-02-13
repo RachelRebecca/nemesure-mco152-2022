@@ -146,13 +146,11 @@ class RPNExpressionTest
     }
 
     @Test
-    public void evaluateOneValueInput()
+    public void evaluateOnlyNumberInput()
     {
-        //one valid character, not a complete RPN expression
-
         //given
         RPNExpression rpn1 = new RPNExpression("3");
-        RPNExpression rpn2 = new RPNExpression("+");
+        RPNExpression rpn2 = new RPNExpression("3 4");
 
         //when
         String result1 = rpn1.evaluate();
@@ -160,16 +158,16 @@ class RPNExpressionTest
 
         //then
         assertEquals("RPN: " + 3.0, result1);
-        assertEquals(ERR_MSG, result2);
+        assertEquals("RPN: 4.0\nExtra junk ignored", result2);
     }
 
     @Test
-    public void evaluateTwoValueInput()
+    public void evaluateIncompleteExpression()
     {
-        // two valid characters, not a complete RPN expression
+        // valid characters, not a complete RPN expression
 
         //given
-        RPNExpression rpn1 = new RPNExpression("3 4");
+        RPNExpression rpn1 = new RPNExpression("+");
         RPNExpression rpn2 = new RPNExpression("+ 3");
         RPNExpression rpn3 = new RPNExpression("+ +");
         RPNExpression rpn4 = new RPNExpression("3 +");
@@ -180,9 +178,8 @@ class RPNExpressionTest
         String result3 = rpn3.evaluate();
         String result4 = rpn4.evaluate();
 
-
         //then
-        assertEquals("RPN: 4.0\nExtra junk ignored", result1);
+        assertEquals(ERR_MSG, result1);
         assertEquals(ERR_MSG, result2);
         assertEquals(ERR_MSG, result3);
         assertEquals(ERR_MSG, result4);
@@ -210,17 +207,14 @@ class RPNExpressionTest
         //given
         RPNExpression rpn1 = new RPNExpression("34+");
         RPNExpression rpn2 = new RPNExpression("3 4+");
-        RPNExpression rpn3 = new RPNExpression("3 4 ++");
 
         //when
         String result1 = rpn1.evaluate();
         String result2 = rpn2.evaluate();
-        String result3 = rpn3.evaluate();
 
         //then
         assertEquals(ERR_MSG, result1);
         assertEquals(ERR_MSG, result2);
-        assertEquals(ERR_MSG, result3);
     }
 
     @Test
@@ -275,24 +269,24 @@ class RPNExpressionTest
     public void evaluateMultipleTimes()
     {
         //given
-        RPNExpression rpn1 = new RPNExpression("3 4 + +");
-        RPNExpression rpn2 = new RPNExpression("3 4 + 3");
-        RPNExpression rpn3 = new RPNExpression("3 4 +");
+        RPNExpression rpn1 = new RPNExpression("3 4 + +"); //v1
+        RPNExpression rpn2 = new RPNExpression("3 4 + 3"); //v2
+        RPNExpression rpn3 = new RPNExpression("3 4 +");   //v3
 
         //when
-        String rpn1Round1 = rpn1.evaluate();
-        String rpn1Round2 = rpn1.evaluate();
-        String rpn2Round1 = rpn2.evaluate();
-        String rpn2Round2 = rpn2.evaluate();
-        String rpn3Round1 = rpn3.evaluate();
-        String rpn3Round2 = rpn3.evaluate();
+        String rpn1Round1 = rpn1.evaluate(); //v1
+        String rpn1Round2 = rpn1.evaluate(); //v1
+        String rpn2Round1 = rpn2.evaluate(); //v2
+        String rpn2Round2 = rpn2.evaluate(); //v2
+        String rpn3Round1 = rpn3.evaluate(); //v3
+        String rpn3Round2 = rpn3.evaluate(); //v3
 
         //then
-        assertEquals(rpn1Round1, rpn1Round2);
-        assertEquals(rpn1Round2, rpn1Round1);
-        assertEquals(rpn2Round1, rpn2Round2);
-        assertEquals(rpn2Round2, rpn2Round1);
-        assertEquals(rpn3Round1, rpn3Round2);
-        assertEquals(rpn3Round2, rpn3Round1);
+        assertEquals(rpn1Round1, rpn1Round2); //v1
+        assertEquals(rpn1Round2, rpn1Round1); //v1
+        assertEquals(rpn2Round1, rpn2Round2); //v2
+        assertEquals(rpn2Round2, rpn2Round1); //v2
+        assertEquals(rpn3Round1, rpn3Round2); //v3
+        assertEquals(rpn3Round2, rpn3Round1); //v3
     }
 }

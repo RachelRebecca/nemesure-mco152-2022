@@ -28,11 +28,11 @@ class ProjectileTest
 
         Projectile projectile = new Projectile(17, 52);
 
-        // then
+        // when
 
         double y = projectile.getYAtTime(3);
 
-        // when
+        // then
 
         assertEquals(-3.9115, y, .0001);
     }
