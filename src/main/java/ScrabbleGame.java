@@ -1,16 +1,12 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 
 public class ScrabbleGame
 {
-    private ArrayList<String> playedWords = new ArrayList<>();
-    private ArrayList<Character> tiles = new ArrayList<>();
-    private ScrabbleDictionary dictionary = new ScrabbleDictionary();
+    private final ArrayList<String> playedWords = new ArrayList<>();
+    private final ArrayList<Character> tiles = new ArrayList<>();
+    private final ScrabbleDictionary dictionary = new ScrabbleDictionary();
 
-    private final Random RAND = new Random();
-
-    private ScrabbleLetterPool letterPool = new ScrabbleLetterPool();
+    private final ScrabbleLetterPool letterPool = new ScrabbleLetterPool();
 
     //make a test
     public ScrabbleGame()
@@ -34,42 +30,41 @@ public class ScrabbleGame
      * remove the letters from the list and add new random letters
      */
 
-    public boolean playWord(String word)
+    public boolean playWord(String word) // still have to break up this method into chunks
     {
+        playedWords.add(word);
+
         if (dictionary.isWord(word))
         {
             char[] letters = word.toCharArray();
-            boolean allLettersInTile = true;
-            for (int i = 0; i < letters.length; i++)
+            for (char letter : letters)
             {
-                if (!tiles.contains(letters[i]))
+                if (!tiles.contains(letter))
                 {
-                    allLettersInTile = false;
+                    return false;
                 }
             }
 
-            if (!allLettersInTile)
-            {
-                return false;
-            }
-            else
-            {
-                for (int i = 0; i < tiles.size(); i++)
-                {
-                    for (Character c : letters)
-                    {
-                        if (c.equals(tiles.get(i)))
-                        {
-                            letterPool.insertLetter(c);
-                            tiles.set(i, letterPool.takeRandomLetterFromPool());
-                            break;
-                        }
-                    }
-                }
-                return true;
-            }
+            replaceTiles(letters);
+            return true;
         }
 
         return false;
+    }
+
+    private void replaceTiles(char[] letters)
+    {
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            for (Character c : letters)
+            {
+                if (c == tiles.get(i))
+                {
+                    letterPool.insertLetter(c);
+                    tiles.set(i, letterPool.takeRandomLetterFromPool());
+                    break;
+                }
+            }
+        }
     }
 }

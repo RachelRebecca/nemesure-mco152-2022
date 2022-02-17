@@ -24,7 +24,7 @@ class ScrabbleGameTest
 
         //when
         System.out.println(tiles);
-        label:
+
         for (int i = 0; i < tiles.size(); i++)
         {
             for (int j = 0; j < tiles.size(); j++)
@@ -37,7 +37,6 @@ class ScrabbleGameTest
                     {
                         wordFound = true;
                         System.out.println(tiles);
-                        break label;
                     }
                 }
             }
