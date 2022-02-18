@@ -14,11 +14,7 @@ class ScrabbleGameTest
         ScrabbleGame game = new ScrabbleGame();
 
         ArrayList<Character> tiles = game.getTiles();
-        ArrayList<Character> originalTiles = new ArrayList<>();
-        for (Character tile : tiles)
-        {
-            originalTiles.add(tile);
-        }
+        ArrayList<Character> originalTiles = new ArrayList<>(tiles);
 
         boolean wordFound = false;
 

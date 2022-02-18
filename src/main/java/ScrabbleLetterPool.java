@@ -44,4 +44,9 @@ public class ScrabbleLetterPool
     {
         letterPool.add(letter);
     }
+
+    public int size()
+    {
+        return letterPool.size();
+    }
 }

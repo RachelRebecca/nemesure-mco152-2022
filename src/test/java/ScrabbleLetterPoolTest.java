@@ -67,7 +67,7 @@ class ScrabbleLetterPoolTest
 
     }
 
-    private HashMap<Character, Integer> populateHashMap(HashMap<Character, Integer> numLettersAvailable)
+    private void populateHashMap(HashMap<Character, Integer> numLettersAvailable)
     {
         numLettersAvailable.put('A', 9);
         numLettersAvailable.put('B', 2);
@@ -96,6 +96,5 @@ class ScrabbleLetterPoolTest
         numLettersAvailable.put('Y', 2);
         numLettersAvailable.put('Z', 1);
 
-        return numLettersAvailable;
     }
 }
