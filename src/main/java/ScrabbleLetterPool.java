@@ -25,6 +25,9 @@ public class ScrabbleLetterPool
     public ScrabbleLetterPool()
     {
         letterPool.addAll(Arrays.asList(AVAILABLE_LETTERS));
+
+        //Since my letterPool is an ArrayList, not a List,
+        // I was having trouble getting the suggested change to work
     }
 
     public ArrayList<Character> getLetterPool()
@@ -34,7 +37,7 @@ public class ScrabbleLetterPool
 
     public Character takeRandomLetterFromPool()
     {
-        int index = letterPool.get(RAND.nextInt(letterPool.size()));
+        int index = RAND.nextInt(letterPool.size());
         Character letter = letterPool.get(index);
         letterPool.remove(letterPool.get(index));
         return letter;

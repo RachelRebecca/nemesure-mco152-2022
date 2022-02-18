@@ -16,7 +16,7 @@ class ScrabbleLetterPoolTest
 
         //then
         assertEquals(availableLetters.length, pool.getLetterPool().size());
-
+        assertEquals(pool.getLetterPool().size(), availableLetters.length);
     }
 
     @Test
@@ -62,9 +62,11 @@ class ScrabbleLetterPoolTest
         pool.insertLetter(letter);
 
         //then
-        assertEquals(availableLetters.length, pool.getLetterPool().size());
-        assertEquals(letter, pool.getLetterPool().get(pool.getLetterPool().size() - 1));
 
+        assertEquals(availableLetters.length, pool.getLetterPool().size());
+
+        // check that letter has been successfully re-added to the Letter Pool ArrayList
+        assertEquals(letter, pool.getLetterPool().get(pool.getLetterPool().size() - 1));
     }
 
     private void populateHashMap(HashMap<Character, Integer> numLettersAvailable)
