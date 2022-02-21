@@ -7,7 +7,6 @@ public class ScrabbleGame
     private final ArrayList<String> playedWords = new ArrayList<>();
     private final ArrayList<Character> tiles = new ArrayList<>();
     private final ScrabbleDictionary dictionary = new ScrabbleDictionary();
-
     private final ScrabbleLetterPool letterPool = new ScrabbleLetterPool();
 
     public ScrabbleGame()
@@ -31,7 +30,7 @@ public class ScrabbleGame
      * remove the letters from the list and add new random letters
      * @return whether word exists and is valid
      */
-    public boolean playWord(String word) // still have to break up this method into chunks
+    public boolean playWord(String word)
     {
         playedWords.add(word);
 
@@ -72,8 +71,7 @@ public class ScrabbleGame
                 {
                     return false;
                 }
-            }
-            else
+            } else
             {
                 return false;
             }
@@ -96,8 +94,7 @@ public class ScrabbleGame
             {
                 int currNum = numTimesLettersAppearInWord.get(c);
                 numTimesLettersAppearInWord.put(c, currNum + 1);
-            }
-            else
+            } else
             {
                 numTimesLettersAppearInWord.put(c, 1);
             }

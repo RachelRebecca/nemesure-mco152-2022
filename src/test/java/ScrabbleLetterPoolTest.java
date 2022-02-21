@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScrabbleLetterPoolTest
 {
-
     @Test
     public void scrabbleLetterPool()
     {
@@ -62,10 +61,8 @@ class ScrabbleLetterPoolTest
         pool.insertLetter(letter);
 
         //then
-
         assertEquals(availableLetters.length, pool.getLetterPool().size());
-
-        // check that letter has been successfully re-added to the Letter Pool ArrayList
+            // check that letter has been re-added to the letter pool
         assertEquals(letter, pool.getLetterPool().get(pool.getLetterPool().size() - 1));
     }
 
@@ -97,6 +94,5 @@ class ScrabbleLetterPoolTest
         numLettersAvailable.put('X', 1);
         numLettersAvailable.put('Y', 2);
         numLettersAvailable.put('Z', 1);
-
     }
 }
