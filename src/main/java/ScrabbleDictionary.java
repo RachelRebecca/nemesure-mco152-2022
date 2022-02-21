@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ScrabbleDictionary
 {
-    private final HashMap<String, String> WORDS = new HashMap<>();
+    private final HashMap<String, String> words = new HashMap<>();
 
     public ScrabbleDictionary()
     {
@@ -18,11 +18,11 @@ public class ScrabbleDictionary
                 String[] entry = line.split("\\s+", 2);
                 if (entry.length == 1)
                 {
-                    WORDS.put(entry[0], "");
+                    words.put(entry[0], "");
                 }
                 else
                 {
-                    WORDS.put(entry[0], entry[1]);
+                    words.put(entry[0], entry[1]);
                 }
             }
         }
@@ -39,6 +39,6 @@ public class ScrabbleDictionary
 
     public String getDefinition(String lookupWord)
     {
-        return WORDS.get(lookupWord.toUpperCase());
+        return words.get(lookupWord.toUpperCase());
     }
 }
