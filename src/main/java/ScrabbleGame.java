@@ -4,13 +4,17 @@ import java.util.HashMap;
 
 public class ScrabbleGame
 {
-    private final ArrayList<String> playedWords = new ArrayList<>();
+    final ArrayList<String> playedWords = new ArrayList<>(); //package private
     private final ArrayList<Character> tiles = new ArrayList<>();
-    private final ScrabbleDictionary dictionary = new ScrabbleDictionary();
-    private final ScrabbleLetterPool letterPool = new ScrabbleLetterPool();
+    private final ScrabbleDictionary dictionary;
+    private final ScrabbleLetterPool letterPool;
 
-    public ScrabbleGame()
+    public ScrabbleGame(ScrabbleDictionary dictionary, ScrabbleLetterPool letterPool)
     {
+        // since game is dependent on these classes, don't instantiate them, pass them through constructor
+        this.dictionary = dictionary;
+        this.letterPool = letterPool;
+
         // give the player 7 random files
         for (int i = 0; i < 7; i++)
         {
@@ -32,8 +36,6 @@ public class ScrabbleGame
      */
     public boolean playWord(String word)
     {
-        playedWords.add(word);
-
         if (dictionary.isWord(word))
         {
             char[] letters = word.toCharArray();
@@ -43,6 +45,7 @@ public class ScrabbleGame
             }
 
             replaceTiles(letters);
+            playedWords.add(word);
             return true;
         }
 
