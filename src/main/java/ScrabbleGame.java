@@ -52,7 +52,7 @@ public class ScrabbleGame
             return true;
         }
 
-        err_msg = "Word played is not in your dictionary";
+        err_msg = "Word played is not in dictionary";
         return false;
     }
 
