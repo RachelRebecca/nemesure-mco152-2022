@@ -9,6 +9,8 @@ public class ScrabbleGame
     private final ScrabbleDictionary dictionary;
     private final ScrabbleLetterPool letterPool;
 
+    private String err_msg = "none";
+
     public ScrabbleGame(ScrabbleDictionary dictionary, ScrabbleLetterPool letterPool)
     {
         // since game is dependent on these classes, don't instantiate them, pass them through constructor
@@ -41,6 +43,7 @@ public class ScrabbleGame
             char[] letters = word.toCharArray();
             if (!isValidLetters(letters))
             {
+                err_msg = "Letters are not in your tiles";
                 return false;
             }
 
@@ -49,6 +52,7 @@ public class ScrabbleGame
             return true;
         }
 
+        err_msg = "Word played is not in your dictionary";
         return false;
     }
 
@@ -144,5 +148,10 @@ public class ScrabbleGame
     public ArrayList<String> getPlayedWords()
     {
         return playedWords;
+    }
+
+    public String getErr_msg()
+    {
+        return err_msg;
     }
 }
