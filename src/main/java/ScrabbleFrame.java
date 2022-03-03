@@ -32,6 +32,21 @@ public class ScrabbleFrame extends JFrame
         setVerticalPanel();
     }
 
+    /**
+     * Set the default settings of the Form
+     */
+    private void setForm()
+    {
+        setTitle("Touro University Scrabble");
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+    }
+
+    /**
+     * Define vertical panel and fill it with tiles, a text field for users to play words,
+     * the score label, submit button, output label, high score label, and start new game button
+     */
     private void setVerticalPanel()
     {
         verticalPanel = new JPanel();
@@ -50,36 +65,16 @@ public class ScrabbleFrame extends JFrame
 
     }
 
-    private void addHighScoreNewGamePanel()
-    {
-        JPanel hsngPanel = new JPanel();
-        hsngPanel.setLayout(new FlowLayout());
-
-        highScoreLabel = new JLabel("high score: " + highScore);
-        hsngPanel.add(highScoreLabel);
-
-        JButton startNewGame = new JButton("Start New Game");
-        startNewGame.addActionListener(this::onNewGameClicked);
-        hsngPanel.add(startNewGame);
-
-        verticalPanel.add(hsngPanel);
-    }
-
-    private void setForm()
-    {
-        setTitle("Touro University Scrabble");
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
-    }
-
+    /**
+     * Layer of vertical panel containing the user's current tiles
+     */
     private void addTilesPanel()
     {
         JPanel tilesPanel = new JPanel();
         tilesPanel.setLayout(new FlowLayout());
 
-        tiles = new JLabel[7];
-        for (int i = 0; i < 7; i++)
+        tiles = new JLabel[game.getTiles().size()];
+        for (int i = 0; i < game.getTiles().size(); i++)
         {
             tiles[i] = new JLabel(game.getTiles().get(i).toString());
             tilesPanel.add(tiles[i]);
@@ -88,12 +83,15 @@ public class ScrabbleFrame extends JFrame
         verticalPanel.add(tilesPanel);
     }
 
+    /**
+     * Layer of vertical panel containing score label, Submit button, and output label
+     */
     private void addScoreButtonOutputPanel()
     {
-        JPanel sboPanel = new JPanel();
-        sboPanel.setLayout(new FlowLayout());
+        JPanel scoreSubmitOutputPanel = new JPanel();
+        scoreSubmitOutputPanel.setLayout(new FlowLayout());
         scoreLabel = new JLabel("score: 0");
-        sboPanel.add(scoreLabel);
+        scoreSubmitOutputPanel.add(scoreLabel);
 
         submitButton = new JButton("Submit");
         submitButton.addActionListener(this::onSubmitClicked);
@@ -102,14 +100,37 @@ public class ScrabbleFrame extends JFrame
         // lambda replaces new ActionListener() {@Override .....} .....
         // event -> System.out.println("Clicked")
         // lambda is a method reference
-        sboPanel.add(submitButton);
+        scoreSubmitOutputPanel.add(submitButton);
 
         outputLabel = new JLabel("Output");
-        sboPanel.add(outputLabel);
+        scoreSubmitOutputPanel.add(outputLabel);
 
-        verticalPanel.add(sboPanel);
+        verticalPanel.add(scoreSubmitOutputPanel);
     }
 
+    /**
+     * Layer of vertical panel containing the high score label and Start New Game button
+     */
+    private void addHighScoreNewGamePanel()
+    {
+        JPanel highScoreNewGamePanel = new JPanel();
+        highScoreNewGamePanel.setLayout(new FlowLayout());
+
+        highScoreLabel = new JLabel("high score: " + highScore);
+        highScoreNewGamePanel.add(highScoreLabel);
+
+        JButton startNewGame = new JButton("Start New Game");
+        startNewGame.addActionListener(this::onNewGameClicked);
+        highScoreNewGamePanel.add(startNewGame);
+
+        verticalPanel.add(highScoreNewGamePanel);
+    }
+
+    /**
+     * When submitting the played word,
+     * play the word and then update score and output message
+     * @param event - ActionEvent
+     */
     public void onSubmitClicked(ActionEvent event)
     {
         String word = inputField.getText().toUpperCase();
@@ -124,7 +145,7 @@ public class ScrabbleFrame extends JFrame
                 highScoreBeaten = true;
             }
             outputLabel.setText("Great job!");
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < game.getTiles().size(); i++)
             {
                 tiles[i].setText(game.getTiles().get(i).toString());
             }
@@ -132,24 +153,30 @@ public class ScrabbleFrame extends JFrame
         else
         {
             String output;
-            if (game.getErr_msg().equals("none"))
+            if (game.getErrorMessage().equals("none"))
             {
                 output = "Something went wrong";
             } else
             {
-                output = game.getErr_msg();
+                output = game.getErrorMessage();
             }
             outputLabel.setText("<html>" + "Attempt failed: " + "<br/>" + output + "</html>");
         }
     }
 
+    /**
+     * Start new game when button is clicked,
+     * reset all fields except high score
+     * Display JOptionPane if user beat high score
+     * @param e - ActionEvent
+     */
     public void onNewGameClicked(ActionEvent e)
     {
         score = 0;
         scoreLabel.setText("score: " + 0);
         game = new ScrabbleGame(new ScrabbleDictionary(), new ScrabbleLetterPool());
         outputLabel.setText("New Game");
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < game.getTiles().size(); i++)
         {
             tiles[i].setText(game.getTiles().get(i).toString());
         }
