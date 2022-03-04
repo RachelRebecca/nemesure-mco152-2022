@@ -152,7 +152,7 @@ public class ScrabbleFrame extends JFrame
         }
         else
         {
-            outputLabel.setText("<html>" + "Attempt failed: " + "<br/>" + game.getErrorMessage().toString() + "</html>");
+            outputLabel.setText("<html>" + "Attempt failed: " + "<br/>" + game.getErrorMessage() + "</html>");
         }
     }
 
