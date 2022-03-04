@@ -9,7 +9,7 @@ public class ScrabbleGame
     private final ScrabbleDictionary dictionary;
     private final ScrabbleLetterPool letterPool;
 
-    private String errorMessage = "none";
+    private ScrabbleErrorMessages errorMessage = ScrabbleErrorMessages.NO_ERROR;
 
     public ScrabbleGame(ScrabbleDictionary dictionary, ScrabbleLetterPool letterPool)
     {
@@ -43,8 +43,7 @@ public class ScrabbleGame
             char[] letters = word.toCharArray();
             if (!isValidLetters(letters))
             {
-                String notInTiles = "Letters are not in your tiles";
-                errorMessage = notInTiles;
+                errorMessage = ScrabbleErrorMessages.NOT_IN_TILES;
                 return false;
             }
 
@@ -53,8 +52,7 @@ public class ScrabbleGame
             return true;
         }
 
-        String notInDictionary = "Word played is not in dictionary";
-        errorMessage = notInDictionary;
+        errorMessage = ScrabbleErrorMessages.NOT_IN_DICTIONARY;
         return false;
     }
 
@@ -152,7 +150,7 @@ public class ScrabbleGame
         return playedWords;
     }
 
-    public String getErrorMessage()
+    public ScrabbleErrorMessages getErrorMessage()
     {
         return errorMessage;
     }

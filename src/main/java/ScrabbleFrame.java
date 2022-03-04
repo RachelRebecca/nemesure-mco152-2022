@@ -152,15 +152,7 @@ public class ScrabbleFrame extends JFrame
         }
         else
         {
-            String output;
-            if (game.getErrorMessage().equals("none"))
-            {
-                output = "Something went wrong";
-            } else
-            {
-                output = game.getErrorMessage();
-            }
-            outputLabel.setText("<html>" + "Attempt failed: " + "<br/>" + output + "</html>");
+            outputLabel.setText("<html>" + "Attempt failed: " + "<br/>" + game.getErrorMessage().toString() + "</html>");
         }
     }
 
