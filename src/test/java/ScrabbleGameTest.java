@@ -31,7 +31,6 @@ class ScrabbleGameTest
         assertTrue(game.playedWords.contains("HELLO"));
         assertEquals(1, game.playedWords.size());
         assertEquals(7, game.getTiles().size());
-        assertEquals("none", game.getErrorMessage());
     }
 
     @Test
