@@ -50,6 +50,7 @@ class ScrabbleGameTest
         assertTrue(game.playedWords.isEmpty());
         Mockito.verify(letterPool, Mockito.times(7)).takeRandomLetterFromPool();
         assertEquals(7, game.getTiles().size());
+        assertEquals(ScrabbleGame.NOT_IN_TILES, game.getErrorMessage());
     }
 
     @Test
@@ -69,5 +70,6 @@ class ScrabbleGameTest
             // verify that the part of the method that checks dictionary is actually called in code
         assertFalse(val);
         assertTrue(game.playedWords.isEmpty());
+        assertEquals(ScrabbleGame.NOT_IN_DICTIONARY, game.getErrorMessage());
     }
 }
