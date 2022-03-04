@@ -9,10 +9,10 @@ public class ScrabbleGame
     private final ScrabbleDictionary dictionary;
     private final ScrabbleLetterPool letterPool;
 
-
     final static String NOT_IN_DICTIONARY = "Word played is not in dictionary";
     final static String NOT_IN_TILES = "Letters are not in your tiles";
-    private String errorMessage = "none";
+    final static String DEFAULT_ERROR = "Something went wrong";
+    private String errorMessage = DEFAULT_ERROR;
 
     public ScrabbleGame(ScrabbleDictionary dictionary, ScrabbleLetterPool letterPool)
     {
