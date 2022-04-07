@@ -14,7 +14,7 @@ public class GetCurrentWeather
      *
      * @return the current temperature in Kelvin
      */
-    public CurrentWeather getCurrentWeather() throws IOException
+    public CurrentWeather getCurrentWeather(String zip) throws IOException
     {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://samples.openweathermap.org")
@@ -24,38 +24,38 @@ public class GetCurrentWeather
         OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
 
         return service
-                .getCurrentWeather("10019")
+                .getCurrentWeather(zip)
                 .execute()
                 .body();
     }
 
     public double getTemperature() throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather();
+        CurrentWeather currentWeather = getCurrentWeather("10019");
         return currentWeather.getTemperature();
     }
 
     public double getMinTemperature() throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather();
+        CurrentWeather currentWeather = getCurrentWeather("10019");
         return currentWeather.getMinTemperature();
     }
 
     public double getMaxTemperature() throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather();
+        CurrentWeather currentWeather = getCurrentWeather("10019");
         return currentWeather.getMaxTemperature();
     }
 
     public String getDescription() throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather();
+        CurrentWeather currentWeather = getCurrentWeather("10019");
         return currentWeather.getDescription();
     }
 
     public String getIcon() throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather();
+        CurrentWeather currentWeather = getCurrentWeather("10019");
         return currentWeather.getIcon();
     }
 

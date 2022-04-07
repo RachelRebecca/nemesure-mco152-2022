@@ -1,10 +1,14 @@
 package weather.json;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Main
 {
     double temp;
     double pressure;
     double humidity;
-    double temp_min; // temp_min is temporarily going to be in Java naming convention
-    double temp_max;
+    @SerializedName("temp_min")
+    double tempMin; // temp_min is able to be in Java naming convention because of SerializedName
+    @SerializedName("temp_max")
+    double tempMax;
 }
