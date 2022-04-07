@@ -21,11 +21,11 @@ public class GetCurrentWeather
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
+        OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class); // retrofit implements the interface for us
 
         return service
                 .getCurrentWeather(zip)
-                .execute()
+                .execute() //blocks the main thread, we want this call done asynchronously
                 .body();
     }
 
