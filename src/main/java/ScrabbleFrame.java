@@ -1,19 +1,14 @@
-import org.w3c.dom.css.RGBColor;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ScrabbleFrame extends JFrame
 {
-    //private int score = 0;
-   // private int highScore = 0;
-    private boolean highScoreBeaten = false;
-    //private ScrabbleGame game;
 
-    private ScrabblePresenter presenter;
+    private boolean highScoreBeaten = false;
+
+    private final ScrabblePresenter presenter;
 
     // member variables for views:
     private JPanel verticalPanel;
@@ -141,7 +136,7 @@ public class ScrabbleFrame extends JFrame
      */
     public void onSubmitClicked(ActionEvent event)
     {
-        String word = inputField.getText().toUpperCase();
+        String word = inputField.getText();
         presenter.playWord(word);
     }
 
@@ -162,13 +157,6 @@ public class ScrabbleFrame extends JFrame
             JOptionPane.showMessageDialog(null, "You beat the high score!");
         }
         highScoreBeaten = false;
-    }
-
-    public static void main(String[] args)
-    {
-        JFrame jFrame = new ScrabbleFrame();
-
-        jFrame.setVisible(true);
     }
 
     public void setScore(String strScore)
@@ -198,4 +186,13 @@ public class ScrabbleFrame extends JFrame
     {
         outputLabel.setText(errorMessage);
     }
+
+
+    public static void main(String[] args)
+    {
+        JFrame jFrame = new ScrabbleFrame();
+
+        jFrame.setVisible(true);
+    }
+
 }

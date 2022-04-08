@@ -1,11 +1,10 @@
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class ScrabblePresenter
 {
 
-    private ScrabbleFrame view;
-    private ScrabbleGame model;
+    private final ScrabbleFrame view;
+    private final ScrabbleGame model;
     private int score;
     private int highScore;
 
@@ -17,6 +16,7 @@ public class ScrabblePresenter
 
     public void playWord(String word)
     {
+        word = word.toUpperCase();
         if (model.playWord(word))
         {
             score += word.length();
@@ -29,11 +29,6 @@ public class ScrabblePresenter
             }
             view.setErrorMessage("Great job!");
             view.setTiles(model.getTiles());
-
-            //for (int i = 0; i < model.getTiles().size(); i++)
-            //{
-            //    tiles[i].setText(model.getTiles().get(i).toString());
-           // }
         }
         else
         {
@@ -51,8 +46,6 @@ public class ScrabblePresenter
     {
         score = 0;
         view.setScore("score: " + 0);
-        //ScrabbleGame game = new ScrabbleGame(new ScrabbleDictionary(), new ScrabbleLetterPool());
-        //presenter = new ScrabblePresenter(this, game);
         view.setErrorMessage("New Game");
         model.set7NewTiles();
         fillTiles();
