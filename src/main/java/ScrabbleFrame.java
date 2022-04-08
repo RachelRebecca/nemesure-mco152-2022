@@ -1,20 +1,18 @@
-import org.w3c.dom.css.RGBColor;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ScrabbleFrame extends JFrame
 {
-    private int score = 0;
-    private int highScore = 0;
+
     private boolean highScoreBeaten = false;
-    private ScrabbleGame game;
+
+    private final ScrabblePresenter presenter;
 
     // member variables for views:
     private JPanel verticalPanel;
-    private JLabel[] tiles;
+    private JLabel[] tilesLabel;
     private JTextField inputField;
     private JLabel scoreLabel;
     private JButton submitButton;
@@ -27,9 +25,11 @@ public class ScrabbleFrame extends JFrame
 
         ScrabbleDictionary dictionary = new ScrabbleDictionary();
         ScrabbleLetterPool letterPool = new ScrabbleLetterPool();
-        game = new ScrabbleGame(dictionary, letterPool);
+        ScrabbleGame game = new ScrabbleGame(dictionary, letterPool);
+        presenter = new ScrabblePresenter(this, game);
 
         setVerticalPanel();
+
     }
 
     /**
@@ -73,14 +73,16 @@ public class ScrabbleFrame extends JFrame
         JPanel tilesPanel = new JPanel();
         tilesPanel.setLayout(new FlowLayout());
 
-        tiles = new JLabel[game.getTiles().size()];
-        for (int i = 0; i < game.getTiles().size(); i++)
+        tilesLabel = new JLabel[7];
+        for (int i = 0; i < tilesLabel.length; i++)
         {
-            tiles[i] = new JLabel(game.getTiles().get(i).toString());
-            tilesPanel.add(tiles[i]);
+            tilesLabel[i] = new JLabel();
+            tilesPanel.add(tilesLabel[i]);
         }
 
         verticalPanel.add(tilesPanel);
+
+        presenter.fillTiles();
     }
 
     /**
@@ -116,7 +118,8 @@ public class ScrabbleFrame extends JFrame
         JPanel highScoreNewGamePanel = new JPanel();
         highScoreNewGamePanel.setLayout(new FlowLayout());
 
-        highScoreLabel = new JLabel("high score: " + highScore);
+        highScoreLabel = new JLabel();
+        setHighScore("high score: 0");
         highScoreNewGamePanel.add(highScoreLabel);
 
         JButton startNewGame = new JButton("Start New Game");
@@ -133,27 +136,8 @@ public class ScrabbleFrame extends JFrame
      */
     public void onSubmitClicked(ActionEvent event)
     {
-        String word = inputField.getText().toUpperCase();
-        if (game.playWord(word))
-        {
-            score += word.length();
-            scoreLabel.setText("score: " + (score));
-            if (score > highScore)
-            {
-                highScore = score;
-                highScoreLabel.setText("high score: " + highScore);
-                highScoreBeaten = true;
-            }
-            outputLabel.setText("Great job!");
-            for (int i = 0; i < game.getTiles().size(); i++)
-            {
-                tiles[i].setText(game.getTiles().get(i).toString());
-            }
-        }
-        else
-        {
-            outputLabel.setText("<html>" + "Attempt failed: " + "<br/>" + game.getErrorMessage() + "</html>");
-        }
+        String word = inputField.getText();
+        presenter.playWord(word);
     }
 
     /**
@@ -162,16 +146,12 @@ public class ScrabbleFrame extends JFrame
      * Display JOptionPane if user beat high score
      * @param e - ActionEvent
      */
+
+
     public void onNewGameClicked(ActionEvent e)
     {
-        score = 0;
-        scoreLabel.setText("score: " + 0);
-        game = new ScrabbleGame(new ScrabbleDictionary(), new ScrabbleLetterPool());
-        outputLabel.setText("New Game");
-        for (int i = 0; i < game.getTiles().size(); i++)
-        {
-            tiles[i].setText(game.getTiles().get(i).toString());
-        }
+        presenter.newGame();
+
         if (highScoreBeaten)
         {
             JOptionPane.showMessageDialog(null, "You beat the high score!");
@@ -179,10 +159,40 @@ public class ScrabbleFrame extends JFrame
         highScoreBeaten = false;
     }
 
+    public void setScore(String strScore)
+    {
+        this.scoreLabel.setText(strScore);
+    }
+
+    public void setHighScore(String strHighScore)
+    {
+        this.highScoreLabel.setText(strHighScore);
+    }
+
+    public void setHighScoreBeaten(boolean beaten)
+    {
+        highScoreBeaten = beaten;
+    }
+
+    public void setTiles(ArrayList<Character> tiles)
+    {
+        for (int i = 0; i < tiles.size(); i++)
+        {
+            tilesLabel[i].setText(tiles.get(i).toString());
+        }
+    }
+
+    public void setErrorMessage(String errorMessage)
+    {
+        outputLabel.setText(errorMessage);
+    }
+
+
     public static void main(String[] args)
     {
         JFrame jFrame = new ScrabbleFrame();
 
         jFrame.setVisible(true);
     }
+
 }
