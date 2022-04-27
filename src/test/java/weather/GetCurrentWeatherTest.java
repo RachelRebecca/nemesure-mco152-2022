@@ -31,7 +31,7 @@ class GetCurrentWeatherTest
         GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
 
         // when
-        double temp = getCurrentWeather.getTemperature();
+        double temp = getCurrentWeather.getTemperature("10019");
 
         // then
         System.out.println(temp);
@@ -45,7 +45,7 @@ class GetCurrentWeatherTest
         GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
 
         // when
-        double temp = getCurrentWeather.getMinTemperature();
+        double temp = getCurrentWeather.getMinTemperature("10019");
 
         // then
         System.out.println(temp);
@@ -59,7 +59,7 @@ class GetCurrentWeatherTest
         GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
 
         // when
-        double temp = getCurrentWeather.getMaxTemperature();
+        double temp = getCurrentWeather.getMaxTemperature("10019");
 
         // then
         System.out.println(temp);
@@ -73,7 +73,7 @@ class GetCurrentWeatherTest
         GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
 
         // when
-        String description = getCurrentWeather.getDescription();
+        String description = getCurrentWeather.getDescription("10019");
 
         // then
         System.out.println(description);
@@ -88,7 +88,7 @@ class GetCurrentWeatherTest
         GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
 
         // when
-        String icon = getCurrentWeather.getIcon();
+        String icon = getCurrentWeather.getIcon("10019");
 
         // then
         System.out.println(icon);

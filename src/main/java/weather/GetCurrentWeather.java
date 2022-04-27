@@ -29,33 +29,33 @@ public class GetCurrentWeather
                 .body();
     }
 
-    public double getTemperature() throws IOException
+    public double getTemperature(String zip) throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather("10019");
+        CurrentWeather currentWeather = getCurrentWeather(zip);
         return currentWeather.getTemperature();
     }
 
-    public double getMinTemperature() throws IOException
+    public double getMinTemperature(String zip) throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather("10019");
+        CurrentWeather currentWeather = getCurrentWeather(zip);
         return currentWeather.getMinTemperature();
     }
 
-    public double getMaxTemperature() throws IOException
+    public double getMaxTemperature(String zip) throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather("10019");
+        CurrentWeather currentWeather = getCurrentWeather(zip);
         return currentWeather.getMaxTemperature();
     }
 
-    public String getDescription() throws IOException
+    public String getDescription(String zip) throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather("10019");
+        CurrentWeather currentWeather = getCurrentWeather(zip);
         return currentWeather.getDescription();
     }
 
-    public String getIcon() throws IOException
+    public String getIcon(String zip) throws IOException
     {
-        CurrentWeather currentWeather = getCurrentWeather("10019");
+        CurrentWeather currentWeather = getCurrentWeather(zip);
         return currentWeather.getIcon();
     }
 
