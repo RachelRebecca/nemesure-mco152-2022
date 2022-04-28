@@ -24,6 +24,9 @@ class GetCurrentWeatherTest
         assertNotNull(currentWeather.getDescription());
         assertNotNull(currentWeather.getIcon());
     }
+
+
+    /*
     @Test
     void getTemperature() throws IOException
     {
@@ -95,4 +98,6 @@ class GetCurrentWeatherTest
         assertNotNull(icon);
         assertTrue(icon.length() > 0);
     }
+
+     */
 }

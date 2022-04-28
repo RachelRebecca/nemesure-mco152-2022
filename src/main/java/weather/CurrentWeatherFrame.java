@@ -1,5 +1,8 @@
 package weather;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import weather.json.CurrentWeather;
 
 import javax.swing.*;
@@ -70,17 +73,59 @@ public class CurrentWeatherFrame extends JFrame
     {
         try
         {
-            CurrentWeather currentWeather = getCurrentWeather.getCurrentWeather(zipcode.getText());
-            double tempKelvin = currentWeather.getTemperature();
-            double tempFahr = convertToFahrenheit(tempKelvin);
-            String fahrenheit = String.format("%s %.2f %n", "Current Temperature: ", tempFahr);
+            // UI runs on main thread. getCurrentWeather's execute is a blocking call
+            // so can run this on a separate thread so submit button doesn't stay depressed for a while
 
-            temperature.setText(fahrenheit);
+            Observable<CurrentWeather> observable = getCurrentWeather.getCurrentWeather(zipcode.getText());
+            observable
+                    .subscribeOn(Schedulers.io()) // do this request in the background
+                    .observeOn(Schedulers.newThread())   // run onNext in a new thread
+                    .subscribe(this::onNext, this::onError);
+           // double tempKelvin = currentWeather.getTemperature();
+
+            //double tempFahr = convertToFahrenheit(tempKelvin);
+           // String fahrenheit = String.format("%s %.2f %n", "Current Temperature: ", tempFahr);
+
+            //temperature.setText(fahrenheit);
+           // temperature.setText("Current temperature: " + tempKelvin);
         }
         catch (IOException e)
         {
            e.printStackTrace();
         }
+    }
+
+    public void onNext(CurrentWeather currentWeather)
+    {
+        /*
+        new Consumer<CurrentWeather>()
+        {
+            @Override
+            public void accept(CurrentWeather currentWeather) throws Exception
+            {
+                double kelvin = currentWeather.getTemperature();
+                temperature.setText("Current temperature: " + kelvin);
+            }
+        };
+         */
+        double kelvin = currentWeather.getTemperature();
+        temperature.setText("Current temperature: " + kelvin);
+
+    }
+
+    public void onError(Throwable throwable)
+    {
+        /*
+        new Consumer<Throwable>()
+        {
+            @Override
+            public void accept(Throwable throwable) throws Exception
+            {
+                throwable.printStackTrace();
+            }
+        };
+         */
+        throwable.printStackTrace();
     }
 
     private double convertToFahrenheit(double tempInKelvin)
