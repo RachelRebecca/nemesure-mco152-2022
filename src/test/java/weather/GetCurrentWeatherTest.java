@@ -1,5 +1,7 @@
 package weather;
 
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 import org.junit.jupiter.api.Test;
 import weather.json.CurrentWeather;
 
@@ -15,7 +17,16 @@ class GetCurrentWeatherTest
         GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
 
         // when
-        CurrentWeather currentWeather = getCurrentWeather.getCurrentWeather("10019");
+        Observable<CurrentWeather> observable = getCurrentWeather.getCurrentWeather("10314");
+        observable
+                //.subscribeOn(Schedulers.io()) // do this request in the background
+                //.observeOn(Schedulers.newThread())   // run onNext in a new thread
+                .subscribe(this::onNext, this::onError);
+
+       /*
+       Test for GetCurrentWeather returning an Observable
+
+       CurrentWeather currentWeather = getCurrentWeather.getCurrentWeather("10019");
 
         // then
         assertTrue(currentWeather.getTemperature() > 0);
@@ -23,7 +34,27 @@ class GetCurrentWeatherTest
         assertTrue(currentWeather.getMinTemperature() > 0);
         assertNotNull(currentWeather.getDescription());
         assertNotNull(currentWeather.getIcon());
+
+        */
     }
+
+    private void onNext(CurrentWeather currentWeather)
+    {
+        System.out.println("temperature: " + currentWeather.getTemperature() +
+                "\nmax: " +  currentWeather.getMaxTemperature() + " min: " + currentWeather.getMinTemperature() +
+                "\ndescription: " + currentWeather.getDescription() + " icon: " + currentWeather.getIcon());
+        assertTrue(currentWeather.getTemperature() > 0);
+        assertTrue(currentWeather.getMaxTemperature() > 0);
+        assertTrue(currentWeather.getMinTemperature() > 0);
+        assertNotNull(currentWeather.getDescription());
+        assertNotNull(currentWeather.getIcon());
+    }
+
+    private void onError(Throwable throwable)
+    {
+        throwable.printStackTrace();
+    }
+
 
 
     /*

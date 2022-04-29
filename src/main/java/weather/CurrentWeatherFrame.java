@@ -1,6 +1,7 @@
 package weather;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import weather.json.CurrentWeather;
@@ -71,13 +72,13 @@ public class CurrentWeatherFrame extends JFrame
 
     private void onSubmitClicked(ActionEvent actionEvent)
     {
-        try
-        {
+       try
+       {
             // UI runs on main thread. getCurrentWeather's execute is a blocking call
             // so can run this on a separate thread so submit button doesn't stay depressed for a while
 
             Observable<CurrentWeather> observable = getCurrentWeather.getCurrentWeather(zipcode.getText());
-            observable
+            Disposable disposable = observable
                     .subscribeOn(Schedulers.io()) // do this request in the background
                     .observeOn(Schedulers.newThread())   // run onNext in a new thread
                     .subscribe(this::onNext, this::onError);
@@ -91,7 +92,7 @@ public class CurrentWeatherFrame extends JFrame
         }
         catch (IOException e)
         {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
