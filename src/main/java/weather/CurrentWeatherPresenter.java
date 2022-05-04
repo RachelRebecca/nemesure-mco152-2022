@@ -2,12 +2,7 @@ package weather;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import org.jetbrains.annotations.Nullable;
 import weather.json.CurrentWeather;
-
-import java.awt.event.ActionEvent;
-import java.io.IOException;
-
 
 public class CurrentWeatherPresenter
 {

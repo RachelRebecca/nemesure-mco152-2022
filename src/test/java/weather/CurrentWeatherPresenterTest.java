@@ -21,6 +21,7 @@ class CurrentWeatherPresenterTest
     @BeforeAll
     public static void beforeAllTests()
     {
+        // the following code makes tests run single-threaded
         RxJavaPlugins.setIoSchedulerHandler((scheduler) -> Schedulers.trampoline());
         RxJavaPlugins.setNewThreadSchedulerHandler((scheduler) -> Schedulers.trampoline());
 
