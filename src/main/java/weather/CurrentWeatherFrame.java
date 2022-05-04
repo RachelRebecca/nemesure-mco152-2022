@@ -82,13 +82,6 @@ public class CurrentWeatherFrame extends JFrame
                     .subscribeOn(Schedulers.io()) // do this request in the background
                     .observeOn(Schedulers.newThread())   // run onNext in a new thread
                     .subscribe(this::onNext, this::onError);
-           // double tempKelvin = currentWeather.getTemperature();
-
-            //double tempFahr = convertToFahrenheit(tempKelvin);
-           // String fahrenheit = String.format("%s %.2f %n", "Current Temperature: ", tempFahr);
-
-            //temperature.setText(fahrenheit);
-           // temperature.setText("Current temperature: " + tempKelvin);
         }
         catch (IOException e)
         {
@@ -98,17 +91,6 @@ public class CurrentWeatherFrame extends JFrame
 
     public void onNext(CurrentWeather currentWeather)
     {
-        /*
-        new Consumer<CurrentWeather>()
-        {
-            @Override
-            public void accept(CurrentWeather currentWeather) throws Exception
-            {
-                double kelvin = currentWeather.getTemperature();
-                temperature.setText("Current temperature: " + kelvin);
-            }
-        };
-         */
         double kelvin = currentWeather.getTemperature();
         temperature.setText("Current temperature: " + kelvin);
 
@@ -116,16 +98,6 @@ public class CurrentWeatherFrame extends JFrame
 
     public void onError(Throwable throwable)
     {
-        /*
-        new Consumer<Throwable>()
-        {
-            @Override
-            public void accept(Throwable throwable) throws Exception
-            {
-                throwable.printStackTrace();
-            }
-        };
-         */
         throwable.printStackTrace();
     }
 
