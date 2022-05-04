@@ -28,7 +28,7 @@ public class GetCurrentWeather
      *
      * @return the current temperature in Fahrenheit
      */
-    public Observable<CurrentWeather> getCurrentWeather(String zip) throws IOException
+    public Observable<CurrentWeather> getCurrentWeather(String zip)
     {
         Observable<CurrentWeather> observable = service.getCurrentWeather(zip);
         return observable;

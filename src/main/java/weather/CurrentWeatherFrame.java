@@ -25,6 +25,7 @@ public class CurrentWeatherFrame extends JFrame
 
     private JPanel verticalPanel;
 
+    private CurrentWeatherPresenter presenter;
 
     public CurrentWeatherFrame()
     {
@@ -68,44 +69,24 @@ public class CurrentWeatherFrame extends JFrame
         temperature = new JLabel();
         temperature.setText("Current temperature goes here");
         verticalPanel.add(temperature);
+
+        presenter = new CurrentWeatherPresenter(this, new GetCurrentWeather());
     }
 
     private void onSubmitClicked(ActionEvent actionEvent)
     {
-       try
-       {
-            // UI runs on main thread. getCurrentWeather's execute is a blocking call
-            // so can run this on a separate thread so submit button doesn't stay depressed for a while
-
-            Observable<CurrentWeather> observable = getCurrentWeather.getCurrentWeather(zipcode.getText());
-            Disposable disposable = observable
-                    .subscribeOn(Schedulers.io()) // do this request in the background
-                    .observeOn(Schedulers.newThread())   // run onNext in a new thread
-                    .subscribe(this::onNext, this::onError);
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        presenter.loadWeatherFromZipcode(zipcode.getText());
     }
 
-    public void onNext(CurrentWeather currentWeather)
+    public void setTemperature(double fahrenheit)
     {
-        double kelvin = currentWeather.getTemperature();
-        temperature.setText("Current temperature: " + kelvin);
-
+        temperature.setText("Current temperature: " + fahrenheit);
     }
 
-    public void onError(Throwable throwable)
+    public void showError()
     {
-        throwable.printStackTrace();
-    }
 
-    private double convertToFahrenheit(double tempInKelvin)
-    {
-        return (1.8*(tempInKelvin-273) + 32);
     }
-
 
     public static void main(String[] args)
     {
