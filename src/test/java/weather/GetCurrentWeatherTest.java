@@ -11,31 +11,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GetCurrentWeatherTest
 {
-    @Test void getCurrentWeather() throws IOException
+
+
+    @Test
+    void getCurrentWeather()
     {
-        // given
         GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
 
-        // when
-        Observable<CurrentWeather> observable = getCurrentWeather.getCurrentWeather("10314");
-        observable
-               .subscribe(this::onNext, this::onError);
-    }
+        CurrentWeather currentWeather = getCurrentWeather.getCurrentWeather("10019")
+                .blockingFirst(); // only use blocking calls in tests
 
-    private void onNext(CurrentWeather currentWeather)
-    {
         System.out.println("temperature: " + currentWeather.getTemperature() +
                 "\nmax: " +  currentWeather.getMaxTemperature() + " min: " + currentWeather.getMinTemperature() +
                 "\ndescription: " + currentWeather.getDescription() + " icon: " + currentWeather.getIcon());
-        assertTrue(currentWeather.getTemperature() > 0);
-        assertTrue(currentWeather.getMaxTemperature() > 0);
-        assertTrue(currentWeather.getMinTemperature() > 0);
+        assertTrue(currentWeather.getTemperature() > -459.67); //-459.67 is Absolute Zero Kelvin converted to Fahrenheit
+        assertTrue(currentWeather.getMaxTemperature() > -459.67);
+        assertTrue(currentWeather.getMinTemperature() > -459.67);
         assertNotNull(currentWeather.getDescription());
         assertNotNull(currentWeather.getIcon());
-    }
-
-    private void onError(Throwable throwable)
-    {
-        throwable.printStackTrace();
     }
 }
