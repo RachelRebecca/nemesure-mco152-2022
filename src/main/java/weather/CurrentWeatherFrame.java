@@ -19,6 +19,9 @@ import java.io.IOException;
 public class CurrentWeatherFrame extends JFrame
 {
     private GetCurrentWeather getCurrentWeather;
+
+    private TemperatureSign temperatureSign;
+
     private JTextField zipcode;
     private JButton submitButton;
     private JLabel temperature;
@@ -70,6 +73,8 @@ public class CurrentWeatherFrame extends JFrame
         temperature.setText("Current temperature goes here");
         verticalPanel.add(temperature);
 
+        temperatureSign = new TemperatureSign();
+        verticalPanel.add(temperatureSign);
         presenter = new CurrentWeatherPresenter(this, new GetCurrentWeather());
     }
 
@@ -81,6 +86,8 @@ public class CurrentWeatherFrame extends JFrame
     public void setTemperature(double fahrenheit)
     {
         temperature.setText("Current temperature: " + fahrenheit);
+        temperatureSign.setTemperature(fahrenheit);
+        repaint();
     }
 
     public void showError()
