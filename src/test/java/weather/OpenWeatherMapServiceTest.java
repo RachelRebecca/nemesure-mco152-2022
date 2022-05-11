@@ -1,24 +1,22 @@
 package weather;
 
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 import org.junit.jupiter.api.Test;
 import weather.json.CurrentWeather;
-
-import java.io.IOException;
+import weather.json.OpenWeatherMapService;
+import weather.json.OpenWeatherMapServiceFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetCurrentWeatherTest
+class OpenWeatherMapServiceTest
 {
-
 
     @Test
     void getCurrentWeather()
     {
-        GetCurrentWeather getCurrentWeather = new GetCurrentWeather();
+        OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
+        OpenWeatherMapService service = factory.getInstance();
 
-        CurrentWeather currentWeather = getCurrentWeather.getCurrentWeather("10019")
+        CurrentWeather currentWeather = service.getCurrentWeather("10019")
                 .blockingFirst(); // only use blocking calls in tests
 
         System.out.println("temperature: " + currentWeather.getTemperature() +

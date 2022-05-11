@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import weather.json.CurrentWeather;
+import weather.json.OpenWeatherMapService;
+import weather.json.OpenWeatherMapServiceFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -41,7 +43,7 @@ class CurrentWeatherPresenterTest
     {
         //given
         CurrentWeatherFrame view = mock(CurrentWeatherFrame.class);
-        GetCurrentWeather model = mock(GetCurrentWeather.class);
+        OpenWeatherMapService model = mock(OpenWeatherMapService.class);
         CurrentWeatherPresenter presenter = new CurrentWeatherPresenter(view, model);
         CurrentWeather currentWeather = mock(CurrentWeather.class);
 

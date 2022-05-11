@@ -5,6 +5,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import weather.json.CurrentWeather;
+import weather.json.OpenWeatherMapService;
+import weather.json.OpenWeatherMapServiceFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +20,6 @@ import java.io.IOException;
  */
 public class CurrentWeatherFrame extends JFrame
 {
-    private GetCurrentWeather getCurrentWeather;
     private JTextField zipcode;
     private JButton submitButton;
     private JLabel temperature;
@@ -56,8 +57,6 @@ public class CurrentWeatherFrame extends JFrame
 
     private void setInitialValues()
     {
-        getCurrentWeather = new GetCurrentWeather();
-
         zipcode = new JTextField();
         zipcode.setText("zipcode goes here");
         verticalPanel.add(zipcode);
@@ -70,7 +69,8 @@ public class CurrentWeatherFrame extends JFrame
         temperature.setText("Current temperature goes here");
         verticalPanel.add(temperature);
 
-        presenter = new CurrentWeatherPresenter(this, new GetCurrentWeather());
+        OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
+        presenter = new CurrentWeatherPresenter(this, factory.getInstance());
     }
 
     private void onSubmitClicked(ActionEvent actionEvent)
