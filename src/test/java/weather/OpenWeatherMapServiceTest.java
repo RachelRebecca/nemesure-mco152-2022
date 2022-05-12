@@ -18,10 +18,13 @@ class OpenWeatherMapServiceTest
 
         CurrentWeather currentWeather = service.getCurrentWeather("10019").blockingGet();
 
-            //.blockingFirst(); // only use blocking calls in tests - block current thread until the first entity comes into the observable, and return that entity
+        //.blockingFirst();
+        // only use blocking calls in tests - blocking first
+        // blocks current thread until the first entity comes into the observable,
+        // and return that entity, no longer necessary with a Single
 
         System.out.println("temperature: " + currentWeather.getTemperature() +
-                "\nmax: " +  currentWeather.getMaxTemperature() + " min: " + currentWeather.getMinTemperature() +
+                "\nmax: " + currentWeather.getMaxTemperature() + " min: " + currentWeather.getMinTemperature() +
                 "\ndescription: " + currentWeather.getDescription() + " icon: " + currentWeather.getIcon());
         assertTrue(currentWeather.getTemperature() > -459.67); //-459.67 is Absolute Zero Kelvin converted to Fahrenheit
         assertTrue(currentWeather.getMaxTemperature() > -459.67);
