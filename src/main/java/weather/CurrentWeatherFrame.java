@@ -1,17 +1,10 @@
 package weather;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import weather.json.CurrentWeather;
-import weather.json.OpenWeatherMapService;
 import weather.json.OpenWeatherMapServiceFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 /**
  * A JTextField for the zipcode

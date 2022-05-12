@@ -16,8 +16,9 @@ class OpenWeatherMapServiceTest
         OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
         OpenWeatherMapService service = factory.getInstance();
 
-        CurrentWeather currentWeather = service.getCurrentWeather("10019")
-                .blockingFirst(); // only use blocking calls in tests
+        CurrentWeather currentWeather = service.getCurrentWeather("10019").blockingGet();
+
+            //.blockingFirst(); // only use blocking calls in tests - block current thread until the first entity comes into the observable, and return that entity
 
         System.out.println("temperature: " + currentWeather.getTemperature() +
                 "\nmax: " +  currentWeather.getMaxTemperature() + " min: " + currentWeather.getMinTemperature() +

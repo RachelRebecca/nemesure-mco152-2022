@@ -1,6 +1,6 @@
 package weather;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import weather.json.CurrentWeather;
@@ -27,7 +27,7 @@ public class CurrentWeatherPresenter
         // observable = observe result
         //Observable<CurrentWeather> observable = getCurrentWeather.getCurrentWeather(zipcode.getText());
 
-        Observable<CurrentWeather> observable = model.getCurrentWeather(zipcode);
+        Single<CurrentWeather> observable = model.getCurrentWeather(zipcode);
         disposable = observable
                 .subscribeOn(Schedulers.io()) // do this request in the background
                 .observeOn(Schedulers.newThread())   // run onNext in a new thread
