@@ -24,27 +24,32 @@ public class TemperatureSign extends JComponent
         Graphics2D g = (Graphics2D) g1;
         super.paintComponent(g); // clears the part of the screen the component uses
         if (temperature > 50)
+        {
             g.setColor(Color.RED);
+        }
         else
+        {
             g.setColor(Color.BLUE);
+        }
 
         Dimension size = getPreferredSize(); // this is what the component sets
 
         // getWidth() and getHeight() gets the ACTUAL width and height of the component,
         // safer to use than getPreferredSize(), since some layout managers make things larger if they can be
 
-     /*   g.drawLine(0, 0, size.width, size.height); // In computers, (0, 0) is the UPPER LEFT CORNER
+        /*
+        g.drawLine(0, 0, size.width, size.height); // In computers, (0, 0) is the UPPER LEFT CORNER
         g.drawLine(0, size.height, size.width, 0); // In computers, (0, 0) is the UPPER LEFT CORNER
 
         g.drawOval(0, 0, size.width, size.height);
-    */
+        */
         int width = getWidth();
         int height = getHeight();
 
-         g.drawLine(0, 0, width, height);
-         g.drawLine(0, height, width, 0);
+        g.drawLine(0, 0, width, height);
+        g.drawLine(0, height, width, 0);
 
-         g.drawOval(0, 0, width, height);
+        g.drawOval(0, 0, width, height);
 
         g.setColor(Color.RED);
         //g.fillRect(width / 2 - CAR_WIDTH / 2, height / 2 - CAR_HEIGHT / 2, CAR_WIDTH, CAR_HEIGHT);
