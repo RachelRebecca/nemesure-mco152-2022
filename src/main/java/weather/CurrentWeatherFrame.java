@@ -1,9 +1,10 @@
 package weather;
 
+import weather.json.OpenWeatherMapServiceFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 /**
  * A JTextField for the zipcode
@@ -65,7 +66,8 @@ public class CurrentWeatherFrame extends JFrame
 
         temperatureSign = new TemperatureSign();
         verticalPanel.add(temperatureSign);
-        presenter = new CurrentWeatherPresenter(this, new GetCurrentWeather());
+        OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
+        presenter = new CurrentWeatherPresenter(this, factory.getInstance());
     }
 
     private void onSubmitClicked(ActionEvent actionEvent)
