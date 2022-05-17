@@ -20,14 +20,19 @@ public class ScrabbleGame
         this.dictionary = dictionary;
         this.letterPool = letterPool;
 
+        set7NewTiles();
+
+    }
+
+    public void set7NewTiles()
+    {
         // give the player 7 random files
+        tiles.clear();
         for (int i = 0; i < 7; i++)
         {
             tiles.add(letterPool.takeRandomLetterFromPool());
         }
-
     }
-
     public ArrayList<Character> getTiles()
     {
         return tiles;

@@ -1,15 +1,10 @@
 package weather;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import weather.json.CurrentWeather;
+import weather.json.OpenWeatherMapServiceFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 /**
  * A JTextField for the zipcode
@@ -18,8 +13,6 @@ import java.io.IOException;
  */
 public class CurrentWeatherFrame extends JFrame
 {
-    private GetCurrentWeather getCurrentWeather;
-
     private TemperatureSign temperatureSign;
 
     private JTextField zipcode;
@@ -59,8 +52,6 @@ public class CurrentWeatherFrame extends JFrame
 
     private void setInitialValues()
     {
-        getCurrentWeather = new GetCurrentWeather();
-
         zipcode = new JTextField();
         zipcode.setText("zipcode goes here");
         verticalPanel.add(zipcode);
@@ -74,8 +65,8 @@ public class CurrentWeatherFrame extends JFrame
         verticalPanel.add(temperature);
 
         temperatureSign = new TemperatureSign();
-        verticalPanel.add(temperatureSign);
-        presenter = new CurrentWeatherPresenter(this, new GetCurrentWeather());
+        OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
+        presenter = new CurrentWeatherPresenter(this, factory.getInstance());
     }
 
     private void onSubmitClicked(ActionEvent actionEvent)
