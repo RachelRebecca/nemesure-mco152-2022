@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
  */
 public class CurrentWeatherFrame extends JFrame
 {
+    private TemperatureSign temperatureSign;
+
     private JTextField zipcode;
     private JButton submitButton;
     private JLabel temperature;
@@ -62,6 +64,8 @@ public class CurrentWeatherFrame extends JFrame
         temperature.setText("Current temperature goes here");
         verticalPanel.add(temperature);
 
+        temperatureSign = new TemperatureSign();
+        verticalPanel.add(temperatureSign);
         OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
         presenter = new CurrentWeatherPresenter(this, factory.getInstance());
     }
@@ -74,6 +78,8 @@ public class CurrentWeatherFrame extends JFrame
     public void setTemperature(double fahrenheit)
     {
         temperature.setText("Current temperature: " + fahrenheit);
+        temperatureSign.setTemperature(fahrenheit);
+        repaint();
     }
 
     public void showError()
