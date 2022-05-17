@@ -1,11 +1,5 @@
 package weather;
 
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import weather.json.CurrentWeather;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,8 +12,6 @@ import java.io.IOException;
  */
 public class CurrentWeatherFrame extends JFrame
 {
-    private GetCurrentWeather getCurrentWeather;
-
     private TemperatureSign temperatureSign;
 
     private JTextField zipcode;
@@ -59,8 +51,6 @@ public class CurrentWeatherFrame extends JFrame
 
     private void setInitialValues()
     {
-        getCurrentWeather = new GetCurrentWeather();
-
         zipcode = new JTextField();
         zipcode.setText("zipcode goes here");
         verticalPanel.add(zipcode);
