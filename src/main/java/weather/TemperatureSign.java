@@ -26,18 +26,18 @@ public class TemperatureSign extends JComponent
         if (temperature > 50)
         {
             g.setColor(Color.RED);
-        }
-        else
+        } else
         {
             g.setColor(Color.BLUE);
         }
 
-        Dimension size = getPreferredSize(); // this is what the component sets
-
         // getWidth() and getHeight() gets the ACTUAL width and height of the component,
-        // safer to use than getPreferredSize(), since some layout managers make things larger if they can be
+        // safer to use than getPreferredSize(), since some layout managers make things
+        // larger if they can be
 
         /*
+        Dimension size = getPreferredSize(); // this is what the component sets
+
         g.drawLine(0, 0, size.width, size.height); // In computers, (0, 0) is the UPPER LEFT CORNER
         g.drawLine(0, size.height, size.width, 0); // In computers, (0, 0) is the UPPER LEFT CORNER
 
