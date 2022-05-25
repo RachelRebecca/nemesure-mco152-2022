@@ -76,7 +76,7 @@ public class CurrentWeatherFrame extends JFrame
         verticalPanel.add(temperatureSign);
     }
 
-    private void onSubmitClicked(ActionEvent actionEvent)
+    public void onSubmitClicked(ActionEvent actionEvent)
     {
         presenter.loadWeatherFromZipcode(zipcode.getText());
     }

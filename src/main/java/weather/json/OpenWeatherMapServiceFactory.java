@@ -14,7 +14,7 @@ public class OpenWeatherMapServiceFactory
     @Inject
     public OpenWeatherMapServiceFactory()
     {
-
+        // dagger needs a blank constructor annotated with inject to function
     }
     public OpenWeatherMapService getInstance()
     {

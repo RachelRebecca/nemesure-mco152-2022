@@ -48,7 +48,8 @@ public class CurrentWeatherPresenter
     public void onNext(CurrentWeather currentWeather)
     {
         double fahrenheit = currentWeather.getTemperature();
-        viewProvider.get().setTemperature(fahrenheit); // this creates a NEW frame, so add @Singleton - forces it to only have 1
+        viewProvider.get().setTemperature(fahrenheit);
+        // .get() creates a NEW frame, so add @Singleton - forces it to only have 1
 
     }
 
