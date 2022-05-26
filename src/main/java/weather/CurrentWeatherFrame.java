@@ -1,7 +1,6 @@
 package weather;
 
 import weather.dagger.DaggerCurrentWeatherComponent;
-import weather.json.OpenWeatherMapServiceFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
