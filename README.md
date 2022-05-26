@@ -9,5 +9,6 @@ This project uses:
 - Junit
 - Rx
 - Gradle
+- [Dagger](https://www.baeldung.com/dagger-2)
 
 ![Current Weather](screenshots/CurrentWeather.png)

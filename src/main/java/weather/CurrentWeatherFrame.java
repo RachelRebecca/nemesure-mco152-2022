@@ -1,7 +1,9 @@
 package weather;
 
-import weather.json.OpenWeatherMapServiceFactory;
+import weather.dagger.DaggerCurrentWeatherComponent;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,7 @@ import java.awt.event.ActionEvent;
  * A JButton to Submit
  * A JLabel for temperature in Fahrenheit
  */
+@Singleton
 public class CurrentWeatherFrame extends JFrame
 {
     private TemperatureSign temperatureSign;
@@ -23,13 +26,17 @@ public class CurrentWeatherFrame extends JFrame
 
     private CurrentWeatherPresenter presenter;
 
-    public CurrentWeatherFrame()
+    @Inject
+    public CurrentWeatherFrame(CurrentWeatherPresenter presenter)
     {
         setForm();
 
         setVerticalPanel();
 
         setInitialValues();
+
+        this.presenter = presenter;
+
     }
 
     /**
@@ -66,11 +73,9 @@ public class CurrentWeatherFrame extends JFrame
 
         temperatureSign = new TemperatureSign();
         verticalPanel.add(temperatureSign);
-        OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
-        presenter = new CurrentWeatherPresenter(this, factory.getInstance());
     }
 
-    private void onSubmitClicked(ActionEvent actionEvent)
+    public void onSubmitClicked(ActionEvent actionEvent)
     {
         presenter.loadWeatherFromZipcode(zipcode.getText());
     }
@@ -89,9 +94,9 @@ public class CurrentWeatherFrame extends JFrame
 
     public static void main(String[] args)
     {
-        JFrame jFrame = new CurrentWeatherFrame();
-
-        jFrame.setVisible(true);
+        CurrentWeatherFrame frame = DaggerCurrentWeatherComponent.create()
+                .getCurrentWeatherFrame();
+        frame.setVisible(true);
     }
 
 }
