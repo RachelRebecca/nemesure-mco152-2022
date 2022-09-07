@@ -131,7 +131,42 @@ public class RPNExpression
      */
     private boolean performOperationSuccessfully(String value, Double var1, Double var2)
     {
+        // JAVA 11 - 18 CHANGE
         switch (value)
+        {
+            case "+" ->
+            {
+                double sum = var1 + var2;
+                stack.add(sum);
+            }
+            case "-" ->
+            {
+                double difference = var1 - var2;
+                stack.add(difference);
+            }
+            case "*", "X", "x" ->
+            {
+                double product = var1 * var2;
+                stack.add(product);
+            }
+            case "/", "÷" ->
+            {
+                if (var2 != 0)
+                {
+                    double quotient = var1 / var2;
+                    stack.add(quotient);
+                }
+                else
+                {
+                    //divide by zero error
+                    return false;
+                }
+            }
+            default -> {return false;}
+        }
+        return true;
+
+        /*switch (value)
         {
             case "+":
                 double sum = var1 + var2;
@@ -164,7 +199,7 @@ public class RPNExpression
                 //something went wrong
                 return false;
         }
-        return true;
+        return true;*/
     }
 
     /**

@@ -1,6 +1,8 @@
-public class Projectile
-{
-    private final static double GRAVITY = 9.8;
+public record Projectile(double initVelocity, double angleInDegrees) // in Java 18, can use record rather than class
+    // record has a defined hash code, toString() and equals()
+    // for record-type classes, don't put logic inside constructor
+    // shorthand way of writing getters for private variables passed through the constructor:
+    /*
 
     private final double initVelocity;
     private final double angleInDegrees;
@@ -20,6 +22,10 @@ public class Projectile
     {
         return angleInDegrees;
     }
+
+     */
+{
+    private final static double GRAVITY = 9.8;
 
     public double getXAtTime(double time)
     {
